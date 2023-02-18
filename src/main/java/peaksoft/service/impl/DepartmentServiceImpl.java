@@ -1,5 +1,6 @@
 package peaksoft.service.impl;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import peaksoft.model.Department;
 import peaksoft.repository.DepartmentRepository;
@@ -7,6 +8,7 @@ import peaksoft.repository.HospitalRepository;
 import peaksoft.service.DepartmentService;
 
 import java.util.List;
+
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentRepository departmentRepository;
@@ -17,12 +19,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         this.hospitalRepository = hospitalRepository;
     }
 
+    @Transactional
     @Override
     public Department save(Department department) {
         Department department1 = new Department();
         department1.setId(department.getId());
         department1.setName(department.getName());
-        department1.setHospital(hospitalRepository.findById(department.getId()));
+        department1.setHospital(hospitalRepository.findById(department.getHospitalId()));
+        departmentRepository.save(department1);
         return department1;
     }
 

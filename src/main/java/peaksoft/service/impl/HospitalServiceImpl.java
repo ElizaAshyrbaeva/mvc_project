@@ -27,7 +27,7 @@ public class HospitalServiceImpl implements HospitalService {
 
     @Override
     public Hospital findById(Long id) {
-        return this.hospitalRepository.findById(id);
+        return hospitalRepository.findById(id);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package peaksoft.repository.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import peaksoft.model.Department;
@@ -10,7 +11,9 @@ import java.util.List;
 @Repository
 @Transactional
 public class DepartmentRepoImpl  implements DepartmentRepository {
+    @PersistenceContext
     private  EntityManager entityManager;
+
     @Override
     public Department save(Department department) {
          entityManager.persist(department);
