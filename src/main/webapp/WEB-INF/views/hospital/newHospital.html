@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>New Hospital</title>
+</head>
+<body>
+<form th:method="POST"th:action="@{/hospitals/savePage}" th:object="${newHospital}">
+
+  <div>
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name">
+  </div>
+
+  <div>
+    <label for="address">Address</label>
+    <input type="text" th:field="*{address}" id="address">
+  </div>
+  <div>
+    <label for="link">Link</label>
+    <input type="text" th:field="*{link}" id="link">
+  </div>
+
+<!--  <div>-->
+<!--    <label for="img">Image Link</label>-->
+<!--    <input type="text" th:field="*{img}" id="img">-->
+<!--  </div>-->
+  <button type="submit">save</button>
+  <p style="text-align:center;">
+
+
+
+</form>
+<br>
+<p style="text-align: center">
+  <a class="btn btn-outline-primary" role="button" href="/hospitals/savePage">Add new hospital</a></p>
+
+</body>
+</html>
