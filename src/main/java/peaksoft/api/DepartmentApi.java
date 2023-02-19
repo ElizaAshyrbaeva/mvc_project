@@ -49,7 +49,7 @@ public class DepartmentApi {
             return "department/edit";
     }
     @PutMapping("/{id}/update")
-    public String updateCompany(@PathVariable("id")Long id,@ModelAttribute("department") Department department){
+    public String update(@PathVariable("id")Long id,@ModelAttribute("department") Department department){
         departmentService.update(id,department);
         return "redirect:/departments";
     }

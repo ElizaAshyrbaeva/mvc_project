@@ -24,6 +24,7 @@ public class Doctor {
     private String lastName;
     private String position;
     private String email;
+    private String image;
     @ManyToMany(cascade = {CascadeType.DETACH,
             CascadeType.MERGE,
             CascadeType.PERSIST,

@@ -1,11 +1,19 @@
 package peaksoft.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import peaksoft.model.Doctor;
+import peaksoft.repository.DoctorRepository;
 import peaksoft.service.DoctorService;
 
 import java.util.List;
-
+@Service
 public class DoctorServiceImpl implements DoctorService {
+    private final DoctorRepository doctorRepository;
+    @Autowired
+    public DoctorServiceImpl(DoctorRepository doctorRepository) {
+        this.doctorRepository = doctorRepository;
+    }
 
     @Override
     public Doctor save(Doctor doctor) {
@@ -14,7 +22,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<Doctor> getAll() {
-        return null;
+        return doctorRepository.getAll();
     }
 
     @Override
