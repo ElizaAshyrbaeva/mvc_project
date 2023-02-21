@@ -2,6 +2,8 @@ package peaksoft.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import peaksoft.model.Department;
+import peaksoft.model.Doctor;
 import peaksoft.model.Hospital;
 import peaksoft.repository.HospitalRepository;
 import peaksoft.service.HospitalService;
@@ -39,4 +41,5 @@ public class HospitalServiceImpl implements HospitalService {
     public void updateHospital(Long id, Hospital updatedHospital) {
             this.hospitalRepository.updateHospital(id,updatedHospital);
     }
+
 }

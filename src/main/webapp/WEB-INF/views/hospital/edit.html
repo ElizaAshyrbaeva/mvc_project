@@ -17,17 +17,19 @@
 </div>
 
 <div class="d-flex justify-content-center">
-  <form class="p-5 bg-light"  th:action="@{update}" th:object="${hospital}" th:method="PUT">
+  <form class="p-5 bg-light"  th:action="@{update}" th:object="${hospitals}" th:method="PUT">
     <input type="hidden" th:field="*{id}">
 
     <div class="form-group">
       <label for="name" class="form-label">Name </label>
       <input type="text" th:field="*{name}" id="name" class="form-control form-control-lg">
+<!--      <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>-->
     </div>
 
     <div class="form-group">
       <label for="input" class="form-label">Address </label>
       <input type="text" th:field="*{address}" id="input" class="form-control form-control-lg">
+<!--      <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</div>-->
     </div>
 
     <div class="form-group">

@@ -22,7 +22,7 @@ public class DepartmentRepoImpl  implements DepartmentRepository {
 
     @Override
     public List<Department> getAll() {
-        return entityManager.createQuery("select d from Department  d",Department.class).getResultList();
+        return entityManager.createQuery("select d from Department d ",Department.class).getResultList();
     }
 
     @Override
@@ -39,6 +39,12 @@ public class DepartmentRepoImpl  implements DepartmentRepository {
     public void update(Long id, Department newDepartment) {
         Department department = entityManager.find(Department.class, id);
         department.setName(newDepartment.getName());
+
+    }
+
+    @Override
+    public List<Department> getAll(Long id) {
+        return entityManager.createQuery("select l from Department l join l.hospital h where h.id=:id",Department.class).setParameter("id",id).getResultList();
 
     }
 }

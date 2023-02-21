@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
+import peaksoft.model.Department;
 import peaksoft.model.Hospital;
 import peaksoft.repository.HospitalRepository;
 
@@ -42,7 +43,6 @@ public class HospitalRepoImpl implements HospitalRepository {
         hospital.setName(updatedHospital.getName());
         hospital.setAddress(updatedHospital.getAddress());
         hospital.setLink(updatedHospital.getLink());
-
 
     }
 }

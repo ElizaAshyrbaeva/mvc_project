@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,8 @@ public class Department {
     private List<Doctor> doctors;
     @Transient
     private Long hospitalId;
+    @Transient
+    private List<Long> doctorId=new ArrayList<>();
     @ManyToOne(
             cascade = {CascadeType.DETACH,
             CascadeType.MERGE,

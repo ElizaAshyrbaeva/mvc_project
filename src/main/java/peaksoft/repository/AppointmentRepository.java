@@ -1,12 +1,14 @@
 package peaksoft.repository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import peaksoft.model.Department;
-import peaksoft.model.Hospital;
 
 import java.util.List;
+
 @Repository
-public interface DepartmentRepository {
+
+public interface AppointmentRepository {
     Department save(Department department);
 
     List<Department> getAll();
@@ -16,5 +18,5 @@ public interface DepartmentRepository {
     void deleteById(Long id);
 
     void update(Long id,Department newDepartment);
-    List<Department>getAll(Long id);
+
 }

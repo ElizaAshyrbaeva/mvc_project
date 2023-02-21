@@ -1,10 +1,14 @@
 package peaksoft.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,11 +24,22 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "doctor_gen")
     private Long id;
+//    @NotNull(message = "Name should not be empty")
+//    @Size(min = 2,max = 30,message = "Name should be between 2 and 30 characters")
     private String firstName;
+//    @NotNull(message = "Name should not be empty")
+//    @Size(min = 2,max = 50,message = "Name should be between 2 and 50 characters")
     private String lastName;
+
     private String position;
+    @NotNull(message = "Email should not be empty")
+    @Email(message = "Email should be valid")
     private String email;
     private String image;
+    @Transient
+    private Long hospitalId;
+    @Transient
+    private List<Long> departmentId= new ArrayList<>();
     @ManyToMany(cascade = {CascadeType.DETACH,
             CascadeType.MERGE,
             CascadeType.PERSIST,
