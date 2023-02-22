@@ -1,10 +1,8 @@
 package peaksoft.api;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import peaksoft.model.Doctor;
 import peaksoft.service.DepartmentService;
@@ -28,14 +26,13 @@ public class DoctorApi {
     @GetMapping("/{hospitalId}")
     public String getAll(@PathVariable Long hospitalId,Model model){
         model.addAttribute("doctors",doctorService.getAll(hospitalId));
-//        model.addAttribute(hospitalId);
         return "doctor/doctor";
     }
     @GetMapping("/{hospitalId}/new")
     public String create(@PathVariable("hospitalId")Long hospitalId,Model model){
         model.addAttribute("newDoctor",new Doctor());
         model.addAttribute(hospitalId);
-        model.addAttribute("departments",departmentService.getAll(hospitalId));
+        model.addAttribute("departments",hospitalService.findById(hospitalId));
         return "doctor/newDoctor";
     }
     @PostMapping("/{hospitalId}/save")
@@ -45,18 +42,19 @@ public class DoctorApi {
     }
     @DeleteMapping("/{hospitalId}/{doctorId}/delete")
     public String delete(@PathVariable("hospitalId")Long hospitalId,@PathVariable("doctorId")Long doctorId){
-        doctorService.delete(hospitalId);
+        doctorService.delete(doctorId);
         return "redirect:/doctors/"+hospitalId;
     }
-    @GetMapping("/{id}/edit")
-    public String edit(@PathVariable("id")Long id,Model model){
+    @GetMapping("/{hospitalId}/{doctorId}/edit")
+    public String edit(@PathVariable("doctorId")Long id,@PathVariable("hospitalId")Long hospitalId, Model model){
         model.addAttribute("doctor",doctorService.findById(id));
+        model.addAttribute("hospitalId",hospitalId);
         return "doctor/edit";
     }
-    @PutMapping("/{id}/update")
-    public String update(@PathVariable("id")Long id,@ModelAttribute("department")  Doctor doctor){
-        doctorService.update(id,doctor);
-        return "redirect:/doctors/doctors";
+    @PutMapping("/{hospitalId}/{doctorId}/update")
+    public String update(@PathVariable("hospitalId")Long hospitalId,@PathVariable("doctorId")Long doctorId,@ModelAttribute("doctor")Doctor doctor){
+        doctorService.update(doctorId,doctor);
+        return "redirect:/doctors/"+hospitalId;
     }
 
 

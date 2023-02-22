@@ -1,12 +1,11 @@
 package peaksoft.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,6 +33,12 @@ public class Hospital {
     private List<Department> departments;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Appointment> appointments;
+    public void addAppointment(Appointment appointment){
+        if(appointments==null){
+            appointments=new ArrayList<>();
+        }
+        appointments.add(appointment);
+    }
     @OneToMany(mappedBy = "hospital",cascade = CascadeType.ALL)
     private List<Patient>patients;
 

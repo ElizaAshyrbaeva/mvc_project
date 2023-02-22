@@ -22,7 +22,7 @@ public class DepartmentRepoImpl  implements DepartmentRepository {
 
     @Override
     public List<Department> getAll() {
-        return entityManager.createQuery("select d from Department d ",Department.class).getResultList();
+        return entityManager.createQuery("select d from Department d  ",Department.class).getResultList();
     }
 
     @Override

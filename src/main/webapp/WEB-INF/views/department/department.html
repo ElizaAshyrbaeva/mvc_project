@@ -18,8 +18,7 @@
     <table>
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
+,            <th>Name</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -29,7 +28,7 @@
             <td th:text="${department.getName()}"></td>
 
             <td>
-                <form th:method="GET" th:action="@{/departments/{hospitalId}/{departmentId}/edit(hospitalId=${hospitalId},departmentId=${department.getId()})}">-->
+                <form th:method="GET" th:action="@{/departments/{hospitalId}/{departmentId}/edit(hospitalId=${hospitalId},departmentId=${department.getId()})}">
                     <input type="submit"  th:value="Update"/>
                 </form>
             </td>

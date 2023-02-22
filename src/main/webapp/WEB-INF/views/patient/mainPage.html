@@ -2,15 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Main page</title>
+    <title>Main Page</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous">
 </head>
 <body>
 <div>
     <a th:href="@{/hospitals/show}">
-        <button class="btn btn-primary" type="button">back</button>
+        <button type="button">back</button>
     </a>
-    <a th:href="@{/patients/new}">
-        <button class="btn btn-primary" type="button">Add</button>
+    <a th:href="@{/patients/{hospitalId}/new(hospitalId=${hospitalId})}">
+        <button type="button">Add</button>
     </a>
 </div>
 <div>
@@ -36,22 +40,27 @@
             <td th:text="${patient.getGender()}"></td>
             <td th:text="${patient.getEmail()}"></td>
 
-            <td>
-                <form th:method="GET" th:action="@{/patients/{id}/edit(id=${patient.id})}">-->
+
+            <td class="div">
+                <form th:method="GET"
+                      th:action="@{/patients/{hospitalId}/{patientId}/edit(hospitalId=${hospitalId},patientId=${patient.getId()})}">
                     <input type="submit" th:value="Update"/>
                 </form>
             </td>
-
             <td>
-                <form th:method="delete" th:action="@{/patients/{id}/delete(id=${patient.getId()})}">
-                    <input type="submit" th:value="Delete">
+                <form th:method="DELETE"
+                      th:action="@{/patients/{hospitalId}/{patientId}/delete(hospitalId=${hospitalId},patientId=${patient.getId()})}">
+                    <input type="submit" th:value="Delete"/>
                 </form>
             </td>
-
         </tr>
         </tbody>
     </table>
 </div>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
 </html>

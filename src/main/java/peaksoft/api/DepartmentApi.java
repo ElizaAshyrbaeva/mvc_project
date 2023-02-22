@@ -8,6 +8,8 @@ import peaksoft.model.Department;
 import peaksoft.model.Hospital;
 import peaksoft.service.DepartmentService;
 import peaksoft.service.HospitalService;
+
+
 @Controller
 @RequestMapping("/departments")
 public class DepartmentApi {
@@ -40,21 +42,23 @@ public class DepartmentApi {
         return "redirect:/departments/"+hospitalId;
     }
 
-    @DeleteMapping("/{hospitalId}{departmentId}/delete")
-    public String deleteById(@PathVariable("hospitalId")Long id,@PathVariable("departmentId")Long departmentId) {
+    @DeleteMapping("/{hospitalId}/{departmentId}/delete")
+    public String deleteById(@PathVariable("hospitalId")Long hospitalId,@PathVariable("departmentId") Long id) {
         departmentService.deleteById(id);
-        return "redirect:/departments";
+        return "redirect:/departments/"+hospitalId;
     }
 
-    @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("department", departmentService.findById(id));
+    @GetMapping("/{hospitalId}/{departmentId}/edit")
+    public String edit(Model model, @PathVariable("departmentId") Long id,@PathVariable("hospitalId")Long hospitalId) {
+        model.addAttribute(departmentService.findById(id));
+        model.addAttribute("hospitalId", hospitalId);
         return "department/edit";
     }
 
-    @PutMapping("/{id}/update")
-    public String update(@PathVariable("id") Long id, @ModelAttribute("department") Department department) {
+    @PutMapping("/{hospitalId}/{departmentId}/update")
+    public String update(@PathVariable("hospitalId") Long hospitalId,@PathVariable("departmentId")Long id,@ModelAttribute("department") Department department) {
         departmentService.update(id, department);
-        return "redirect:/departments";
+        return "redirect:/departments/"+hospitalId;
     }
+
 }

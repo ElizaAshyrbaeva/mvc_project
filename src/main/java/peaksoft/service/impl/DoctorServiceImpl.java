@@ -37,7 +37,7 @@ public class DoctorServiceImpl implements DoctorService {
         doctor1.setPosition(doctor.getPosition());
         doctor1.setEmail(doctor.getEmail());
         doctor1.setImage(doctor.getImage());
-       doctor1.setHospital(hospital);
+        doctor1.setHospital(hospital);
         doctor1.getDepartmentId().forEach(s->doctor1.getDepartmentList().add(departmentRepository.findById(s)));
         doctorRepository.save(doctor1);
         return doctor1;

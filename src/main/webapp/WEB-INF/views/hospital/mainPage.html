@@ -4,14 +4,10 @@
     <meta charset="UTF-8">
     <title>Main Page</title>
     <style>
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
         .edit {
             display: flex;
             gap: 15px;
+
         }
     </style>
 
@@ -42,24 +38,34 @@
                 <input type="submit" th:value="Edit"/>
             </form>
         </td>
+
         <td class="delete">
             <form th:method="DELETE" th:action="@{/hospitals/{id}/delete(id=${hospital.getId()})}">
                 <input type="submit" th:value="delete"/>
             </form>
-
         </td>
+
         <td class="departments">
             <form th:method="GET" th:action="@{/departments/{hospitalId}(hospitalId=${hospitalId})}">
                 <input type="submit" th:value="departments"/>
             </form>
+        </td>
+
         <td class="departments">
             <form th:method="GET" th:action="@{/doctors/{hospitalId}(hospitalId=${hospitalId})}">
                 <input type="submit" th:value="doctors"/>
             </form>
         </td>
+
         <td class="patients">
-            <form th:method="GET" th:action="@{/patients}">
+            <form th:method="GET" th:action="@{/patients/{hospitalId}(hospitalId=${hospitalId})}">
                 <input type="submit" th:value="patients"/>
+            </form>
+        </td>
+
+        <td class="patients">
+            <form th:method="GET" th:action="@{/appointments/{hospitalId}(hospitalId=${hospitalId})}">
+                <input type="submit" th:value="appointment"/>
             </form>
         </td>
         </tr>

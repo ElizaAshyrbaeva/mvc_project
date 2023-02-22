@@ -2,18 +2,14 @@ package peaksoft.service.impl;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import peaksoft.model.Hospital;
 import peaksoft.model.Patient;
 import peaksoft.repository.HospitalRepository;
 import peaksoft.repository.PatientRepo;
 import peaksoft.service.PatientService;
 
 import java.util.List;
-
-/**
- * @created : Lenovo Nuriza
- **/
 @Service
 @Transactional
 public class PatientServiceImpl implements PatientService {
@@ -27,13 +23,15 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient save(Patient newpatient) {
-        return patientRepo.save(newpatient);
+    @Transactional
+    public Patient save(Long id,Patient newPatient) {
+         newPatient.setHospital(hospitalRepository.findById(id));
+         return patientRepo.save(newPatient);
     }
 
     @Override
-    public List<Patient> getAll() {
-        return patientRepo.getAll();
+    public List<Patient> getAll(Long id) {
+        return patientRepo.getAll(id);
     }
 
     @Override

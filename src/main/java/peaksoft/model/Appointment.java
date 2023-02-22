@@ -21,6 +21,14 @@ public class Appointment {
             generator = "appointment_gen")
     private Long id;
     private LocalDate date;
+    @Transient
+    private Long departmentId;
+    @Transient
+    private Long doctorId;
+    @Transient
+    private Long patientId;
+    @Transient
+    private String date1;
     @ManyToOne(cascade = {CascadeType.DETACH,
             CascadeType.MERGE,
             CascadeType.PERSIST,

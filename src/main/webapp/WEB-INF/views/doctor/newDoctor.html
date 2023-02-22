@@ -16,8 +16,11 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="d-flex justify-content-center">
-    <form th:action="@{/doctors/{hospitalId}/savePage(hospitalId=${hospitalId})}" th:object="${newDoctor}" method="POST">
+
+<div class="card" style="width: 18rem;">
+    <div style="width: 50%; margin: 0 auto">
+
+    <form th:action="@{/doctors/{hospitalId}/save(hospitalId=${hospitalId})}" th:object="${newDoctor}" method="POST">
         <input type="hidden" th:field="*{id}">
         <div>
             <label for="firstName">firstName</label>
@@ -40,17 +43,18 @@
             <input type="text" th:field="*{image}" id="imageLink">
         </div>
         <div>
-            <select th:field="*{departmentId}">
+            <select th:field="*{departmentId}" multiple required>
                 <option value="">--Select a department--</option>
                 <option th:each="department : ${departments}" th:value="${department.id}"
                         th:text="${department.name}"></option>
             </select>
-        </div>
 
         <div>
-            <input type="submit" value="Save" class="btn btn-primary btn-lg">
+            <input type="submit" value="Save"/>
+        </div>
         </div>
     </form>
+</div>
 </div>
 </body>
 </html>

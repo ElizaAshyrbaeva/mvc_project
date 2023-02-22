@@ -1,8 +1,6 @@
 package peaksoft.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,6 +43,8 @@ public class Patient {
                     CascadeType.MERGE, CascadeType.PERSIST,
                     CascadeType.REFRESH})
     private List<Appointment> appoitmentList;
+    @Transient
+    private Long hospitalId;
 
 
 }

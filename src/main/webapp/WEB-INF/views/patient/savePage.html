@@ -17,28 +17,27 @@
 </head>
 <body>
 <div>
-    <form th:action="@{/patients/savePage}" th:object="${newPatient}" method="POST">
+    <form th:action="@{/patients/{hospitalId}/savePage(hospitalId=${hospitalId})}" th:object="${newPatient}" method="POST">
         <input type="hidden" th:field="*{id}">
         <div>
-            <label for="name">First name</label>
-            <input type="text" th:field="*{firstName}" id="name">
-
+            <label for="firstName">firstName</label>
+            <input type="text" th:field="*{firstName}" id="firstName">
         </div>
         <div>
-            <label for="lname">Last name</label>
-            <input type="text" th:field="*{lastName}" id="lname">
+            <label for="lastName">lastName</label>
+            <input type="text" th:field="*{lastName}" id="lastName">
         </div>
         <div>
-            <label for="email">Email</label>
+            <label for="number">lastName</label>
+            <input type="text" th:field="*{phoneNumber}" id="number">
+        </div>
+        <div>
+            <label for="position">Gender</label>
+            <input type="text" th:field="*{gender}" id="position">
+        </div>
+        <div>
+            <label for="email">email</label>
             <input type="text" th:field="*{email}" id="email">
-        </div>
-        <div>
-            <label for="phnumber">Phone number</label>
-            <input type="text" th:field="*{phoneNumber}" id="phnumber">
-        </div>
-        <div>
-            <label for="gender">Gender</label>
-            <input type="text" th:field="*{gender}" id="gender">
         </div>
 
         <div>

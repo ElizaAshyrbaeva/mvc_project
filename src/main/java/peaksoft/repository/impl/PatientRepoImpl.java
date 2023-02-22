@@ -17,10 +17,10 @@ import java.util.List;
 @Transactional
 public class PatientRepoImpl implements PatientRepo {
     @PersistenceContext
+
     private final EntityManager entityManager;
 
     @Autowired
-
     public PatientRepoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
@@ -32,8 +32,8 @@ public class PatientRepoImpl implements PatientRepo {
     }
 
     @Override
-    public List<Patient> getAll() {
-        return entityManager.createQuery("select p from Patient p", Patient.class).getResultList();
+    public List<Patient> getAll(Long id) {
+        return entityManager.createQuery("select d from Patient d join d.hospital h where h.id=:id",Patient.class).setParameter("id",id).getResultList();
     }
 
     @Override

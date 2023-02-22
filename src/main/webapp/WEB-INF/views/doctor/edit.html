@@ -9,27 +9,31 @@
 </head>
 <body>
 
-<div class="d-flex justify-content-center"></div>
-<form class="p-5 bg-light" th:action="@{/doctors/{id}/update(id=${doctor.getId()})}" th:object="${doctor}"
-      th:method="PUT">
+<!--<div class="d-flex justify-content-center"></div>-->
+
+<form th:action="@{update}" th:object="${doctor}" th:method="PUT">
   <input type="hidden" th:field="*{id}">
 
   <div>
     <label for="firstName">first Name</label>
     <input type="text" th:field="*{firstName}" id="firstName">
   </div>
+
   <div>
     <label for="lastName">last Name</label>
     <input type="text" th:field="*{lastName}" id="lastName">
   </div>
+
   <div>
     <label for="email"> email</label>
     <input type="text" th:field="*{email}" id="email">
   </div>
+
   <div>
     <label for="position"> position</label>
     <input type="text" th:field="*{position}" id="position">
   </div>
+
   <div>
     <label for="imageLink">ImageLink</label>
     <input type="text" th:field="*{image}" id="imageLink">
