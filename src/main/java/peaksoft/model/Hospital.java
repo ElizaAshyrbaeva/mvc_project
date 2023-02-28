@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Hospital {
     @Id
-    @SequenceGenerator(name = "hospital_gen",
-            sequenceName = "hospital_seq",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "hospital_gen")
+    @SequenceGenerator(name = "hospital_gen",sequenceName = "hospital_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hospital_gen")
     private Long id;
 
     private String link;
@@ -31,7 +29,7 @@ public class Hospital {
     private List<Doctor> doctors;
     @OneToMany(mappedBy = "hospital",cascade = CascadeType.ALL)
     private List<Department> departments;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Appointment> appointments;
     public void addAppointment(Appointment appointment){
         if(appointments==null){
@@ -39,7 +37,15 @@ public class Hospital {
         }
         appointments.add(appointment);
     }
-    @OneToMany(mappedBy = "hospital",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hospital",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Patient>patients;
+
+    public  void  setDepartment(Doctor doctor){
+        if(doctors==null){
+            doctors=new ArrayList<>();
+        }
+        doctors.add(doctor);
+
+    }
 
 }

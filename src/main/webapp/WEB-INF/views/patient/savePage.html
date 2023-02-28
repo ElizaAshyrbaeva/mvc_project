@@ -2,48 +2,53 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Save page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
+    <title>New</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
 <div>
-    <form th:action="@{/patients/{hospitalId}/savePage(hospitalId=${hospitalId})}" th:object="${newPatient}" method="POST">
+    <a th:href="@{/patients/{hospitalId}(hospitalId=${hospitalId})}" class="btn btn-primary">back</a>
+</div>
+
+<div>
+    <form th:action="@{/patients/{hospitalId}/savePage(hospitalId=${hospitalId})}" th:object="${newPatient}"
+          method="POST">
         <input type="hidden" th:field="*{id}">
         <div>
-            <label for="firstName">firstName</label>
-            <input type="text" th:field="*{firstName}" id="firstName">
+            <label for="name">Name:</label>
+            <input type="text" th:field="*{firstName}" id="name">
         </div>
         <div>
-            <label for="lastName">lastName</label>
+            <label for="lastName">Surname:</label>
             <input type="text" th:field="*{lastName}" id="lastName">
-        </div>
-        <div>
-            <label for="number">lastName</label>
-            <input type="text" th:field="*{phoneNumber}" id="number">
-        </div>
-        <div>
-            <label for="position">Gender</label>
-            <input type="text" th:field="*{gender}" id="position">
-        </div>
-        <div>
-            <label for="email">email</label>
-            <input type="text" th:field="*{email}" id="email">
         </div>
 
         <div>
-            <input type="submit" value="Save">
+            <label for="email">Email:</label>
+            <input type="text" placeholder="...@gmail.com" id="email" th:field="*{email}">
+        </div>
+        <div>
+            <label for="phoneNumber">Phone number:</label>
+            <input type="text" placeholder="+996" id="phoneNumber" th:field="*{phoneNumber}">
+        </div>
+        <div>
+            <label >Gender:</label>
+            <select th:field="*{gender}">
+                <option value="">--Gender--</option>
+                <option th:each="gender : ${genders}" th:value="${gender.name()}" th:text="${gender.name} "></option>
+            </select>
+        </div>
+        <br>
+        <div>
+            <button type="submit">Save</button>
         </div>
     </form>
 </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
 </html>

@@ -9,6 +9,9 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.*;
+import static jakarta.persistence.CascadeType.DETACH;
+
 @Entity
 @Table(name = "doctors")
 @Getter
@@ -22,11 +25,7 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "doctor_gen")
     private Long id;
-//    @NotNull(message = "Name should not be empty")
-//    @Size(min = 2,max = 30,message = "Name should be between 2 and 30 characters")
     private String firstName;
-//    @NotNull(message = "Name should not be empty")
-//    @Size(min = 2,max = 50,message = "Name should be between 2 and 50 characters")
     private String lastName;
 
     private String position;
@@ -36,21 +35,20 @@ public class Doctor {
     @Transient
     private Long hospitalId;
     @Transient
-    private List<Long> departmentId= new ArrayList<>();
-    @ManyToMany(cascade = {CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH})
-    private List<Department> departmentList;
-    @OneToMany(mappedBy = "doctor", cascade = {CascadeType.DETACH,
-            CascadeType.REFRESH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST})
+    private List<Long> departmentId =new ArrayList<>();
+    @ManyToMany(cascade = {REFRESH, MERGE, PERSIST, DETACH})
+    private List<Department>departmentList;
+    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
     private List<Appointment> appointmentList;
-    @ManyToOne(cascade = {CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.REFRESH,
-            CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.DETACH,MERGE,REFRESH,PERSIST})
     private Hospital hospital;
+
+    public  void  setDepartment(Department department){
+        if(departmentList==null){
+            departmentList=new ArrayList<>();
+        }
+        departmentList.add(department);
+
+    }
 
 }

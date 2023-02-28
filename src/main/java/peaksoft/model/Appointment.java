@@ -31,17 +31,14 @@ public class Appointment {
     private String date1;
     @ManyToOne(cascade = {CascadeType.DETACH,
             CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH})
+            CascadeType.PERSIST,})
     private Patient patient;
     @ManyToOne(cascade = {CascadeType.DETACH,
             CascadeType.PERSIST,
-            CascadeType.DETACH,
-            CascadeType.REFRESH})
+            CascadeType.MERGE})
     private Doctor doctor;
     @ManyToOne(
             cascade = {CascadeType.DETACH,
-            CascadeType.REFRESH,
             CascadeType.MERGE,
             CascadeType.PERSIST})
     private Department department;

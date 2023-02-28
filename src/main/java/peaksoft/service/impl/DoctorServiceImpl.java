@@ -1,51 +1,51 @@
 package peaksoft.service.impl;
 
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import peaksoft.model.Appointment;
 import peaksoft.model.Doctor;
 import peaksoft.model.Hospital;
+import peaksoft.repository.AppointmentRepository;
 import peaksoft.repository.DepartmentRepository;
 import peaksoft.repository.DoctorRepository;
 import peaksoft.repository.HospitalRepository;
 import peaksoft.service.DoctorService;
 
 import java.util.List;
-
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final HospitalRepository hospitalRepository;
     private final DepartmentRepository departmentRepository;
+    private final AppointmentRepository appointmentRepository;
 
-    @Autowired
-    public DoctorServiceImpl(DoctorRepository doctorRepository, HospitalRepository hospitalRepository, DepartmentRepository departmentRepository) {
-        this.doctorRepository = doctorRepository;
-        this.hospitalRepository = hospitalRepository;
-        this.departmentRepository = departmentRepository;
-    }
 
-    @Override
     @Transactional
-    public Doctor save(Long id,Doctor doctor) {
+    @Override
+    public Doctor save(Long id, Doctor newDoctor) {
         Hospital hospital = hospitalRepository.findById(id);
-        Doctor doctor1 = new Doctor();
-        doctor1.setId(doctor.getId());
-        doctor1.setFirstName(doctor.getFirstName());
-        doctor1.setLastName(doctor.getLastName());
-        doctor1.setPosition(doctor.getPosition());
-        doctor1.setEmail(doctor.getEmail());
-        doctor1.setImage(doctor.getImage());
-        doctor1.setHospital(hospital);
-        doctor1.getDepartmentId().forEach(s->doctor1.getDepartmentList().add(departmentRepository.findById(s)));
-        doctorRepository.save(doctor1);
-        return doctor1;
+        Doctor doctor = new Doctor();
+        doctor.setId(newDoctor.getId());
+        doctor.setFirstName(newDoctor.getFirstName());
+        doctor.setLastName(newDoctor.getLastName());
+        doctor.setEmail(newDoctor.getEmail());
+        doctor.setPosition(newDoctor.getPosition());
+        doctor.setImage(newDoctor.getImage());
+        doctor.setHospital(hospital);
+        for (Long aLong : newDoctor.getDepartmentId()) {
+            doctor.setDepartment(departmentRepository.findById(aLong));
+        }
+
+
+        return doctorRepository.save(doctor);
     }
 
     @Override
-    public List<Doctor> getAll(Long id) {
-        return doctorRepository.getAll(id);
+    public List<Doctor> getAll(Long hospitalId) {
+        return doctorRepository.getAll(hospitalId);
     }
 
     @Override
@@ -53,14 +53,29 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorRepository.findById(id);
     }
 
+
+    @Transactional
     @Override
     public void delete(Long id) {
-        doctorRepository.delete(id);
+        Doctor doctor = doctorRepository.findById(id);
+        List<Appointment> appointments = doctor.getAppointmentList();
+        if (appointments != null) {
+            List<Appointment> appointmentList = appointments.stream().filter(s -> s.getDoctor().getId().equals(id)).toList();
+            appointmentList.forEach(s -> appointmentRepository.deleteById(s.getId()));
+        }
+        List<Doctor> doctors = doctor.getHospital().getDoctors();
+        doctors.removeIf(d->d.getId().equals(id));
 
+        doctorRepository.delete(id);
     }
 
     @Override
-    public void update(Long id, Doctor updatedDoctor) {
-        doctorRepository.update(id, updatedDoctor);
+    public Doctor getById(Long id) {
+        return doctorRepository.findById(id);
+    }
+    @Transactional
+    @Override
+    public void update(Long id, Doctor newDoctor) {
+        doctorRepository.update(id, newDoctor);
     }
 }

@@ -12,6 +12,7 @@ public interface DoctorRepository {
     List<Doctor> getAll();
     Doctor findById(Long id);
     void delete(Long id);
+
     void update(Long id, Doctor updatedDoctor);
     List<Doctor>getAll(Long id);
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import peaksoft.enams.Gender;
 import peaksoft.model.Doctor;
 import peaksoft.model.Patient;
 import peaksoft.service.HospitalService;
@@ -13,12 +14,10 @@ import peaksoft.service.PatientService;
 @RequestMapping("/patients")
 public class PatientApi {
     private final PatientService patientService;
-    private final HospitalService hospitalService;
 
     @Autowired
-    public PatientApi(PatientService patientService, HospitalService hospitalService) {
+    public PatientApi(PatientService patientService) {
         this.patientService = patientService;
-        this.hospitalService = hospitalService;
     }
 
     @GetMapping("/{hospitalId}")
@@ -31,6 +30,7 @@ public class PatientApi {
     public String create(@PathVariable Long hospitalId, Model model) {
         model.addAttribute("newPatient", new Patient());
         model.addAttribute(hospitalId);
+        model.addAttribute("genders", Gender.values());
         return "patient/savePage";
     }
 

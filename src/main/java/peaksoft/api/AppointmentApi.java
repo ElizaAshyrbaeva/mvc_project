@@ -48,15 +48,18 @@ public class AppointmentApi {
     }
 
     @DeleteMapping("/{hospitalId}/{appointmentId}/delete")
-    public String delete(@PathVariable("hospitalId") Long hospitalId,@PathVariable("appointmentId") Long appointmentId,
+    public String delete(@PathVariable Long hospitalId,@PathVariable Long appointmentId,
                          @ModelAttribute("newAppointment") Appointment appointment){
-        appointmentService.deleteById(appointmentId);
+        appointmentService.deleteById(appointmentId,hospitalId);
         return "redirect:/appointments/"+hospitalId;
     }
     @GetMapping("/{hospitalId}/{appointmentId}/edit")
     public String edit(@PathVariable("appointmentId")Long id, @PathVariable("hospitalId")Long hospitalId, Model model){
         model.addAttribute("appointment",appointmentService.findById(id));
-        model.addAttribute("hospitalId",hospitalId);
+        model.addAttribute("departments",departmentService.getAll(hospitalId));
+        model.addAttribute("doctors",doctorService.getAll(hospitalId));
+        model.addAttribute("patients",patientService.getAll(hospitalId));
+        model.addAttribute("hospitalId", hospitalId);
         return "appointment/edit";
     }
     @PutMapping("/{hospitalId}/{appointmentId}/update")

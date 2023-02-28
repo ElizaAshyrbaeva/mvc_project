@@ -1,6 +1,6 @@
 package peaksoft.repository;
 
-
+import peaksoft.model.Hospital;
 import peaksoft.model.Patient;
 
 import java.util.List;

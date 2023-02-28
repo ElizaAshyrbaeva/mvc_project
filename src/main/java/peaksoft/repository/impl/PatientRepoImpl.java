@@ -5,19 +5,15 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import peaksoft.model.Hospital;
 import peaksoft.model.Patient;
 import peaksoft.repository.PatientRepo;
 
 import java.util.List;
-
-/**
- * @created : Lenovo Nuriza
- **/
 @Repository
 @Transactional
 public class PatientRepoImpl implements PatientRepo {
     @PersistenceContext
-
     private final EntityManager entityManager;
 
     @Autowired
@@ -33,7 +29,9 @@ public class PatientRepoImpl implements PatientRepo {
 
     @Override
     public List<Patient> getAll(Long id) {
-        return entityManager.createQuery("select d from Patient d join d.hospital h where h.id=:id",Patient.class).setParameter("id",id).getResultList();
+        return entityManager.createQuery("select d from Patient d join d.hospital h where h.id=:id",Patient.class)
+                .setParameter("id",id)
+                .getResultList();
     }
 
     @Override

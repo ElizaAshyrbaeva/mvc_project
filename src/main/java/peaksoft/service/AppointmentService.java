@@ -12,7 +12,7 @@ public interface AppointmentService {
 
     Appointment findById(Long id);
 
-    void deleteById(Long id);
+    void deleteById(Long hId,Long id);
 
     void update(Long id,Appointment newAppointment);
 }

@@ -9,15 +9,12 @@ import peaksoft.model.Hospital;
 import peaksoft.service.DepartmentService;
 import peaksoft.service.HospitalService;
 
-
-
 @Controller
 @RequestMapping("/hospitals")
 public class HospitalApi {
     private final HospitalService hospitalService;
     private final DepartmentService departmentService;
 
-    @Autowired
     public HospitalApi(HospitalService hospitalService, DepartmentService departmentService) {
         this.hospitalService = hospitalService;
         this.departmentService = departmentService;
@@ -32,8 +29,9 @@ public class HospitalApi {
     }
 
     @GetMapping("/show")
-    public String findAll(Model model) {
-        model.addAttribute("hospitals", hospitalService.getAllHospital());
+    public String findAll(Model model , @RequestParam (required = false)String word) {
+        model.addAttribute("word", word);
+        model.addAttribute("hospitals", hospitalService.findAll(word));
         return "hospital/find";
     }
 
@@ -43,7 +41,7 @@ public class HospitalApi {
         return "hospital/newHospital";
     }
 
-    @PostMapping("/savePage")
+    @PostMapping("/save")
     public String save(@ModelAttribute("hospital") Hospital hospital) {
         hospitalService.save(hospital);
         return "redirect:/hospitals/show";

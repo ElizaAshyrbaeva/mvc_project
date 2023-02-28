@@ -5,8 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
+
+import static jakarta.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "departments")
@@ -23,21 +26,18 @@ public class Department {
     private Long id;
     private String name;
     @ManyToMany(mappedBy = "departmentList",
-            cascade = {CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH})
+            cascade = {DETACH,MERGE,PERSIST,REFRESH})
     private List<Doctor> doctors;
     @Transient
     private Long hospitalId;
-    @Transient
-    private List<Long> doctorId=new ArrayList<>();
     @ManyToOne(
-            cascade = {CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH})
+            cascade = {DETACH,MERGE,PERSIST,REFRESH})
     private Hospital hospital;
 
-
+    public void setDepartment(Doctor doctor) {
+        if (doctors == null) {
+            doctors = new ArrayList<>();
+        }
+        doctors.add(doctor);
+    }
 }

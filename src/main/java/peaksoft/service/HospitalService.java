@@ -15,4 +15,5 @@ public interface HospitalService {
     void deleteHospital(Long id);
 
     void updateHospital(Long id,Hospital updatedHospital);
+    List<Hospital>findAll(String word);
 }

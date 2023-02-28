@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Main Page</title>
@@ -15,14 +14,11 @@
           crossorigin="anonymous">
 </head>
 <body>
-<div>
-    <a th:href="@{/hospitals/show}">
-        <button type="button">back</button>
-    </a>
-    <a th:href="@{/doctors/{hospitalId}/new(hospitalId=${hospitalId})}">
-        <button type="button">Add</button>
-    </a>
+<div class="div">
+    <a th:href="@{/hospitals/{id}/mainPage(id=${hospitalId})}" class="btn btn-primary">back</a></a>
+    <a th:href="@{/doctors/{hospitalId}/new(hospitalId=${hospitalId})}" class="btn btn-primary">Add</a></a>
 </div>
+
 <div>
     <div style="width: 50%; margin: 0 auto"
 
@@ -35,12 +31,10 @@
             <p class="card-text" th:text="${doctor.getEmail()}">Email</p>
             <p class="card-text" th:text="${doctor.getPosition()}">Position</p>
         </div>
-
             <div class="div">
                 <form th:method="GET" th:action="@{/doctors/{hospitalId}/{doctorId}/edit(hospitalId=${hospitalId},doctorId=${doctor.getId()})}">
                     <input type="submit"  th:value="Update"/>
                 </form>
-
                 <form th:method="DELETE" th:action="@{/doctors/{hospitalId}/{doctorId}/delete(hospitalId=${hospitalId},doctorId=${doctor.getId()})}">
                     <input type="submit" th:value="Delete"/>
                 </form>

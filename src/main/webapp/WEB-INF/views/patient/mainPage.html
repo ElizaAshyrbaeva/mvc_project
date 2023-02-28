@@ -2,63 +2,58 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Main Page</title>
+    <title>Patients</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-          rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-          crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<style>
+    .div{
+        display: flex;
+        gap: 15px;
+    }
+
+</style>
 </head>
-<body>
-<div>
-    <a th:href="@{/hospitals/show}">
-        <button type="button">back</button>
-    </a>
-    <a th:href="@{/patients/{hospitalId}/new(hospitalId=${hospitalId})}">
-        <button type="button">Add</button>
-    </a>
-</div>
-<div>
-    <table>
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last name</th>
-            <th>Phone Number</th>
-            <th>Gender</th>
-            <th>Email</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="patient:${patients}">
-            <td th:text="${patient.getId()}"></td>
-            <td th:text="${patient.getFirstName()}"></td>
-            <td th:text="${patient.getLastName()}"></td>
-            <td th:text="${patient.getPhoneNumber()}"></td>
-            <td th:text="${patient.getGender()}"></td>
-            <td th:text="${patient.getEmail()}"></td>
+<body class="body">
 
+<div>
+    <a th:href="@{/patients/{hospitalId}/new(hospitalId=${hospitalId})}"  class="btn btn-primary">Add</a>
 
-            <td class="div">
-                <form th:method="GET"
-                      th:action="@{/patients/{hospitalId}/{patientId}/edit(hospitalId=${hospitalId},patientId=${patient.getId()})}">
-                    <input type="submit" th:value="Update"/>
-                </form>
-            </td>
-            <td>
-                <form th:method="DELETE"
-                      th:action="@{/patients/{hospitalId}/{patientId}/delete(hospitalId=${hospitalId},patientId=${patient.getId()})}">
-                    <input type="submit" th:value="Delete"/>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <a th:href="@{/hospitals/{hospitalId}/mainPage(hospitalId=${hospitalId})}" class="btn btn-primary">back</a>
 </div>
+
+<table >
+    <thead>
+    <tr>
+
+        <th >Name</th>
+        <th >Last Name</th>
+        <th >Email</th>
+        <th >Phone number</th>
+        <th >Gender</th>
+        <th >Edit</th>
+        <th >Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="patient : ${patients}">
+        <td th:text="${patient.getFirstName()}">Name</td>
+        <td th:text="${patient.getLastName()}">Last Name</td>
+        <td th:text="${patient.getEmail()}">Email</td>
+        <td th:text="${patient.getPhoneNumber()}">PhoneNumber</td>
+        <td th:text="${patient.getGender()}">Gender</td>
+        <td>
+            <div class="div">
+            <form th:method="GET" th:href="@{/patients/{hospitalId}/{patientId}/edit(hospitalId=${hospitalId},patientId=${patient.getId()})}" class="btn btn-primary">Edit</a></a></form>
+            <form th:method="delete" th:action="@{/patients/{hospitalId}/{patientId}/delete(hospitalId=${hospitalId},patientId=${patient.getId()})}" class="btn btn-primary">Delete</a></a></form>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>

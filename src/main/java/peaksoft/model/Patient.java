@@ -8,6 +8,8 @@ import peaksoft.enams.Gender;
 
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.*;
+
 @Entity
 @Table(name = "patients")
 @Getter
@@ -33,15 +35,9 @@ public class Patient {
     private Gender gender;
     @Column(unique = true)
     private String email;
-    @ManyToOne(cascade = {CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.REFRESH,
-            CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.DETACH,MERGE,REFRESH,PERSIST})
     private Hospital hospital;
-    @OneToMany(mappedBy = "patient",
-            cascade = {CascadeType.DETACH,
-                    CascadeType.MERGE, CascadeType.PERSIST,
-                    CascadeType.REFRESH})
+    @OneToMany(mappedBy = "patient",cascade = {CascadeType.ALL})
     private List<Appointment> appoitmentList;
     @Transient
     private Long hospitalId;

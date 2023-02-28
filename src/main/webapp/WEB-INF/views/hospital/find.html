@@ -15,14 +15,21 @@
     </style>
 
 </head>
+<form th:action="@{/hospitals/show}" method="GET" class="form">
+    <input type="text" name="word" th:value="${word}" class="first-input" placeholder="Search hospitals">
+    <button type="submit" class="search-button">Search</button>
+</form>
 <body>
 <div class="container" style="width: 78%; margin: 0 auto">
     <div style="width: 18rem;"
          th:each="hospital:${hospitals}">
         <img th:src="${hospital.getLink()}" object-fit width="223" height="170px">
 
-        <div class="card-body">
+        <div >
+
             <h5 th:text="${hospital.getName()}">Name</h5>
+        </div>
+        <div>
             <p th:text="${hospital.getAddress()}">Address</p>
         </div>
 

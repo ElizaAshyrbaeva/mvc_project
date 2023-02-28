@@ -1,11 +1,9 @@
 package peaksoft.api;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import peaksoft.model.Department;
-import peaksoft.model.Hospital;
 import peaksoft.service.DepartmentService;
 import peaksoft.service.HospitalService;
 
@@ -23,9 +21,10 @@ public class DepartmentApi {
     }
 
     @GetMapping("/{hospitalId}")
-    public String findAll(@PathVariable Long hospitalId,Model model) {
+    public String findAll(@PathVariable Long hospitalId, Model model) {
         model.addAttribute("departments", departmentService.getAll(hospitalId));
         model.addAttribute(hospitalId);
+        model.addAttribute("hospital", hospitalService.findById(hospitalId));
         return "department/department";
     }
 
@@ -36,29 +35,29 @@ public class DepartmentApi {
         return "department/newDepartment";
     }
 
-    @PostMapping("/{hospitalId}/savePage")
-    public String save(@PathVariable Long hospitalId,@ModelAttribute("newDepartment") Department department) {
-        departmentService.save(hospitalId,department);
-        return "redirect:/departments/"+hospitalId;
+    @PostMapping("/{hospitalId}/save")
+    public String save(@PathVariable Long hospitalId, @ModelAttribute("newDepartment") Department department) {
+        departmentService.save(hospitalId, department);
+        return "redirect:/departments/" + hospitalId;
     }
 
     @DeleteMapping("/{hospitalId}/{departmentId}/delete")
-    public String deleteById(@PathVariable("hospitalId")Long hospitalId,@PathVariable("departmentId") Long id) {
-        departmentService.deleteById(id);
-        return "redirect:/departments/"+hospitalId;
+    public String deleteById(@PathVariable Long hospitalId, @PathVariable Long departmentId) {
+        departmentService.deleteById(departmentId);
+        return "redirect:/departments/" + hospitalId;
     }
 
     @GetMapping("/{hospitalId}/{departmentId}/edit")
-    public String edit(Model model, @PathVariable("departmentId") Long id,@PathVariable("hospitalId")Long hospitalId) {
-        model.addAttribute(departmentService.findById(id));
+    public String edit(Model model, @PathVariable Long departmentId, @PathVariable Long hospitalId) {
+        model.addAttribute(departmentService.findById(departmentId));
         model.addAttribute("hospitalId", hospitalId);
         return "department/edit";
     }
 
     @PutMapping("/{hospitalId}/{departmentId}/update")
-    public String update(@PathVariable("hospitalId") Long hospitalId,@PathVariable("departmentId")Long id,@ModelAttribute("department") Department department) {
+    public String update(@PathVariable("hospitalId") Long hospitalId, @PathVariable("departmentId") Long id, @ModelAttribute("department") Department department) {
         departmentService.update(id, department);
-        return "redirect:/departments/"+hospitalId;
-    }
+        return "redirect:/departments/" + hospitalId;
 
+    }
 }

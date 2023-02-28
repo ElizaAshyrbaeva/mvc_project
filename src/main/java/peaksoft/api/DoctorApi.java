@@ -26,13 +26,15 @@ public class DoctorApi {
     @GetMapping("/{hospitalId}")
     public String getAll(@PathVariable Long hospitalId,Model model){
         model.addAttribute("doctors",doctorService.getAll(hospitalId));
+        model.addAttribute(hospitalId);
+       model.addAttribute("hospitals",hospitalService.findById(hospitalId));
         return "doctor/doctor";
     }
     @GetMapping("/{hospitalId}/new")
     public String create(@PathVariable("hospitalId")Long hospitalId,Model model){
         model.addAttribute("newDoctor",new Doctor());
         model.addAttribute(hospitalId);
-        model.addAttribute("departments",hospitalService.findById(hospitalId));
+        model.addAttribute("departments",departmentService.getAll(hospitalId));
         return "doctor/newDoctor";
     }
     @PostMapping("/{hospitalId}/save")

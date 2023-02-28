@@ -2,6 +2,7 @@ package peaksoft.repository;
 
 import org.springframework.stereotype.Repository;
 import peaksoft.model.Department;
+import peaksoft.model.Doctor;
 import peaksoft.model.Hospital;
 
 import java.util.List;
@@ -17,4 +18,5 @@ public interface DepartmentRepository {
 
     void update(Long id,Department newDepartment);
     List<Department>getAll(Long id);
+
 }
